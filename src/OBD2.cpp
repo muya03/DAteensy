@@ -67,23 +67,65 @@ void receivedOBD2callback(const CAN_message_t &msg){
                 break;
 
             case ENGINE_COOLANT_TEMPERATURE:
+                _db->Engine_coolant_temperature = A;
+                break;
+
             case LONG_TERM_FUEL_TRIM_BANK_1:
+                _db->long_term_fuel_trim = A;
+                break;
+
             case INTAKE_MANIFOLD_ABSOLUTE_PRESSURE:
+                _db->intake_manifold_absolute_pressure = A;
+                break;
+
             case ENGINE_RPM:
+                _db->engine_rpmA = A;
+                _db->engine_rpmB = B;
+                break;
+
             case VEHICLE_SPEED:
+                _db->vehicle_speed = A;
+                break;
+
             case TIMING_ADVANCE:
+                _db->timing_advance = A;
+                break;
+
             case AIR_INTAKE_TEMPERATURE:
+                _db->intake_air_temperature = A;
+                break;
+
             case THROTTLE_POSITION:
+                _db->throttle_position = A;
+                break;
+
             case OXYGEN_SENSOR_1_SHORT_TERM_FUEL_TRIM:
+                _db->oxygen_sensor_voltage = A;
+                _db->oxygen_sensor_long_term_fuel_trim = B;
+                break;
 
             case DISTANCE_TRAVELED_WITH_MIL_ON:
+                _db->Distance_Traveled_MIL_on_A = A;
+                _db->Distance_Traveled_MIL_on_B = B;
+                break;
+
             case ABSOLULTE_BAROMETRIC_PRESSURE:
+                _db->absolute_barometric_presure = A;
+                break;
 
             case CONTROL_MODULE_VOLTAGE:
+                _db->control_module_voltage_A = A;
+                _db->control_module_voltage_B = B;
+                break;
+
             case RELATIVE_THROTTLE_POSITION:
-            case TIME_RUN_WITH_MIL_ON:     
+                _db->relavite_throttle_position = A;
+                break;
 
-
+            case TIME_RUN_WITH_MIL_ON:
+                _db->time_run_with_mil_on_A = A;
+                _db->time_run_with_mil_on_B = B;
+                break;  
         }
     }
 
@@ -106,4 +148,71 @@ void OBD2events(){
         askPID(MONITOR_STATUS_SINCE_DTCS_CLEARED);
         time_received = millis();
     }
+}
+
+
+void printOBD2ALL(OBD2sensordata database){
+    Serial.print("MIL_ON: "); Serial.println(database.MIL_on);
+    Serial.print("DTC COUNT: "); Serial.println(database.DTC_CNT);
+    Serial.println();
+
+    Serial.print("FUEL SYSTEM STATUS: ");
+    switch (database.Fuel_system_status){
+        case 0:
+            Serial.println("motor OFF");
+            break;
+        case 1:
+            Serial.println("Open loop due to insufficient engine temperature");
+            break;
+        case 2:
+            Serial.println("Closed loop, using oxygen sensor feedback to determine fuel mix");
+            break;
+        case 4:
+            Serial.println("Open loop due to engine load OR fuel cut due to deceleration");
+            break;
+        case 8:
+            Serial.println("Open loop due to system failure");
+            break;
+        case 16:
+            Serial.println("Closed loop, using at least one oxygen sensor but there is a fault in the feedback system");
+        default:
+            Serial.println("Invalid response");
+    }
+    
+    Serial.println();
+    
+    Serial.print("Calculated Engine Load: "); Serial.print(database.Calculated_Engine_load/2.55, 2); Serial.println("%");
+
+    Serial.println();
+
+    Serial.print("coolant Temp: "); Serial.print(float(database.Engine_coolant_temperature) - 40.0,2); Serial.println("ºC");
+    Serial.print("Air Temp: "); Serial.print(float(database.intake_air_temperature) - 40.0,2); Serial.println("ºC");
+    
+    Serial.println();
+
+    Serial.print("Long term fuel trim: "); Serial.print(database.long_term_fuel_trim/1.28-100, 2); Serial.println("%");
+    Serial.print("Intake manifold absolute pressure: "); Serial.print(database.intake_manifold_absolute_pressure); Serial.println("kPa");
+    Serial.print("Absolute barometric presure: "); Serial.print(database.absolute_barometric_presure); Serial.println("kPa");
+
+    Serial.println();
+    Serial.print("Engine RPM: "); Serial.print((database.engine_rpmA*256+database.engine_rpmB)/4,2); Serial.println("rpm");
+    Serial.print("Vehicle Speed: "); Serial.print(database.vehicle_speed, 2); Serial.println("km/h");
+
+    Serial.println();
+
+    Serial.print("Timing advance: "); Serial.print(database.timing_advance/2-64, 2); Serial.println("º before TDC");
+    Serial.print("Throttle position: "); Serial.print(database.throttle_position/2.55, 2); Serial.println("%");
+    Serial.print("Relative throttle position: "); Serial.print(database.relavite_throttle_position/2.55, 2); Serial.println("%");
+
+    Serial.println();
+
+
+    Serial.print("Oxygen sensor voltage: "); Serial.print(database.oxygen_sensor_voltage/200, 2); Serial.println("V");
+    Serial.print("Oxygen sensor long term fuel trim: "); Serial.print(database.oxygen_sensor_long_term_fuel_trim/1.28 - 100, 2); Serial.println("%");
+
+    Serial.println();
+
+    Serial.print("Control module voltage: "); Serial.print((256*database.control_module_voltage_A + database.control_module_voltage_B) / 1000, 2); Serial.println("V");
+    Serial.print("Distance Traveled MIL: "); Serial.print(256*database.Distance_Traveled_MIL_on_A + database.control_module_voltage_B, 2); Serial.println("km");
+    Serial.print("Time Traveled MIL: "); Serial.print(256*database.time_run_with_mil_on_A + database.time_run_with_mil_on_B, 2); Serial.println("minutes");
 }
