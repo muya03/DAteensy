@@ -64,7 +64,7 @@ typedef struct {
 } OBD2sensordata;
 
 // functions
-void initOBD2(FlexCAN_T4<CAN, RX_SIZE_256, TX_SIZE_16> &can, OBD2sensordata &database);
+void initOBD2(OBD2sensordata &database);
 void askPID(uint8_t id);
 void OBD2events();
 
