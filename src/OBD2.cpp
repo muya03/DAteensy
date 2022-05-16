@@ -195,24 +195,24 @@ void printOBD2ALL(OBD2sensordata database){
     Serial.print("Absolute barometric presure: "); Serial.print(database.absolute_barometric_presure); Serial.println("kPa");
 
     Serial.println();
-    Serial.print("Engine RPM: "); Serial.print((database.engine_rpmA*256+database.engine_rpmB)/4,2); Serial.println("rpm");
-    Serial.print("Vehicle Speed: "); Serial.print(database.vehicle_speed, 2); Serial.println("km/h");
+    Serial.print("Engine RPM: "); Serial.print((database.engine_rpmA*256+database.engine_rpmB)/4.0,2); Serial.println("rpm");
+    Serial.print("Vehicle Speed: "); Serial.print(database.vehicle_speed); Serial.println("km/h");
 
     Serial.println();
 
-    Serial.print("Timing advance: "); Serial.print(database.timing_advance/2-64, 2); Serial.println("º before TDC");
+    Serial.print("Timing advance: "); Serial.print(database.timing_advance/2.0-64, 2); Serial.println("º before TDC");
     Serial.print("Throttle position: "); Serial.print(database.throttle_position/2.55, 2); Serial.println("%");
     Serial.print("Relative throttle position: "); Serial.print(database.relavite_throttle_position/2.55, 2); Serial.println("%");
 
     Serial.println();
 
 
-    Serial.print("Oxygen sensor voltage: "); Serial.print(database.oxygen_sensor_voltage/200, 2); Serial.println("V");
+    Serial.print("Oxygen sensor voltage: "); Serial.print(database.oxygen_sensor_voltage/200.0, 2); Serial.println("V");
     Serial.print("Oxygen sensor long term fuel trim: "); Serial.print(database.oxygen_sensor_long_term_fuel_trim/1.28 - 100, 2); Serial.println("%");
 
     Serial.println();
 
-    Serial.print("Control module voltage: "); Serial.print((256*database.control_module_voltage_A + database.control_module_voltage_B) / 1000, 2); Serial.println("V");
-    Serial.print("Distance Traveled MIL: "); Serial.print(256*database.Distance_Traveled_MIL_on_A + database.control_module_voltage_B, 2); Serial.println("km");
-    Serial.print("Time Traveled MIL: "); Serial.print(256*database.time_run_with_mil_on_A + database.time_run_with_mil_on_B, 2); Serial.println("minutes");
+    Serial.print("Control module voltage: "); Serial.print((256*database.control_module_voltage_A + database.control_module_voltage_B) / 1000.0, 2); Serial.println("V");
+    Serial.print("Distance Traveled MIL: "); Serial.print(256*database.Distance_Traveled_MIL_on_A + database.control_module_voltage_B); Serial.println("km");
+    Serial.print("Time Traveled MIL: "); Serial.print(256*database.time_run_with_mil_on_A + database.time_run_with_mil_on_B); Serial.println("minutes");
 }
