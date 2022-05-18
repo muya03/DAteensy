@@ -40,6 +40,7 @@ void askPID(uint8_t id){
     myCan.write(askPID);
 
 }
+extern uint32_t counter;
 
 void receivedOBD2callback(const CAN_message_t &msg){
     #ifdef DEBUG
@@ -54,6 +55,7 @@ void receivedOBD2callback(const CAN_message_t &msg){
     if (service == 0x41){ // we've got a response
         switch(pid){
             case MONITOR_STATUS_SINCE_DTCS_CLEARED:
+
                 _db->MIL_on =  A & 0b10000000 ;
                 _db->DTC_CNT = A & 0b01111111 ;
                 break;
