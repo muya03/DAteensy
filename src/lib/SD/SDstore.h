@@ -5,6 +5,8 @@
 #include <SD.h>
 
 void initSD();
+void saveLine(String data);
+
 String storeFile;
 
 

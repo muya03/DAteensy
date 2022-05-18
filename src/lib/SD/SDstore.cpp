@@ -38,3 +38,11 @@ void initSD(){
 
 }
 
+void saveLine(String data){
+        char buffer[32];
+        storeFile.toCharArray(buffer, 32);
+        File dataFile = SD.open(buffer, FILE_WRITE);
+        dataFile.println(data);
+        dataFile.close();
+
+}

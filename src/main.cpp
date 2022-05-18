@@ -17,7 +17,6 @@ void setup() {
     #endif
 
     initOBD2(OBD2db);
-  // Initialize SD 
     initSD();
 }
 
