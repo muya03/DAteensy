@@ -72,6 +72,8 @@ void receivedOBD2callback(const CAN_message_t &msg);
 
 void printOBD2ALL(OBD2sensordata database);
 
+String OBD2toCSV(OBD2sensordata database);
+
 //FlexCAN_T4<CAN, RX_SIZE_256, TX_SIZE_16> _can;
 //OBD2sensordata _db;
 

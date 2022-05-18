@@ -218,3 +218,7 @@ void printOBD2ALL(OBD2sensordata database){
     Serial.print("Distance Traveled MIL: "); Serial.print(256*database.Distance_Traveled_MIL_on_A + database.control_module_voltage_B); Serial.println("km");
     Serial.print("Time Traveled MIL: "); Serial.print(256*database.time_run_with_mil_on_A + database.time_run_with_mil_on_B); Serial.println("minutes");
 }
+
+String OBD2toCSV(OBD2sensordata database){
+    
+}
