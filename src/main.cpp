@@ -43,8 +43,8 @@ void loop() {
 
     // execute each second
     if (millis() - elapsed_second > 1000){
-        // send data over radio
-
+        // print data to log file
+        saveLine(OBD2toCSV(OBD2db));
         elapsed_second = millis();
     }
 

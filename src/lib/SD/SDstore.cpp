@@ -3,7 +3,7 @@
 
 String storeFile = "";
 
-String generateFileName(){
+void generateFileName(){
         uint32_t current_time = readCounter(EEPROM_base_address);
         storeFile = String(current_time);
         String originalName = String(current_time);
@@ -12,10 +12,10 @@ String generateFileName(){
         storeFile.toCharArray(buffer, 32);
 
         uint8_t i = 1;
-    //    while (SD.exists(buffer)){
-        while (true) {
+        while (SD.exists(buffer)){
+                #ifdef DEBUG
                 Serial.println(storeFile);
-                delay(1000);
+                #endif
                 storeFile = originalName + "." + i;
 
                 storeFile.toCharArray(buffer, 32);
@@ -33,7 +33,7 @@ void initSD(){
         #endif
     }
 
-    storeFile = generateFileName();
+    generateFileName();
         
 
 }

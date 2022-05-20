@@ -7,8 +7,5 @@
 void initSD();
 void saveLine(String data);
 
-String storeFile;
-
-
 
 #endif

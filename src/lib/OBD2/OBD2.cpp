@@ -40,7 +40,6 @@ void askPID(uint8_t id){
     myCan.write(askPID);
 
 }
-extern uint32_t counter;
 
 void receivedOBD2callback(const CAN_message_t &msg){
     #ifdef DEBUG
@@ -152,7 +151,7 @@ void OBD2events(){
     }
 }
 
-
+// prints obd2db object to serial
 void printOBD2ALL(OBD2sensordata database){
     Serial.print("MIL_ON: "); Serial.println(database.MIL_on);
     Serial.print("DTC COUNT: "); Serial.println(database.DTC_CNT);
@@ -219,6 +218,88 @@ void printOBD2ALL(OBD2sensordata database){
     Serial.print("Time Traveled MIL: "); Serial.print(256*database.time_run_with_mil_on_A + database.time_run_with_mil_on_B); Serial.println("minutes");
 }
 
+// transform OBD2db object to csv format
 String OBD2toCSV(OBD2sensordata database){
+    String ret = "";
+    // MIL: ON or OFF
+    if (database.MIL_on){
+        ret += "ON";
+    } else {
+        ret += "OFF";
+    }
+
+    ret += ",";
+
+    // NUMBER OF DTC on
+    ret += database.DTC_CNT;
+    ret += ",";
+
+    // fuel_system_status
+    ret += database.Fuel_system_status;
+
+    ret += ",";
     
+    // calculated engine load    
+    ret += String(database.Calculated_Engine_load/2.55, 2);
+    ret += ",";
+
+    // coolant Temp
+    ret += String(float(database.Engine_coolant_temperature) - 40.0,2);
+    ret += ",";
+
+    // Air Temp
+    ret += String(float(database.intake_air_temperature) - 40.0,2);
+    ret += ",";
+
+    // Long term fuel trim: 
+    ret += String(database.long_term_fuel_trim/1.28-100, 2);
+    ret += ",";
+
+    //Intake manifold absolute pressure
+    ret += String(database.intake_manifold_absolute_pressure);
+    ret += ",";
+
+    // Absolute barometric presure
+    ret += String(database.absolute_barometric_presure);
+    ret += ",";
+
+    // rpm
+    ret += String((database.engine_rpmA*256+database.engine_rpmB)/4.0, 2);
+    ret += ",";
+
+    // vehicle speed (OBD2)
+    ret += String(database.vehicle_speed);
+    ret += ",";
+
+    // Timing advance
+    ret += String(database.timing_advance/2.0-64, 2);
+    ret += ",";
+
+    // Throttle position
+    ret += String(database.throttle_position/2.55, 2); 
+    ret += ",";
+
+    // Relative throttle position
+    ret += String(database.relavite_throttle_position/2.55, 2);
+    ret += ",";
+
+    // Oxygen sensor voltage
+    ret += String(database.oxygen_sensor_voltage/200.0, 2);
+    ret += ",";
+
+    // Oxygen sensor long term fuel trim:
+    ret += String(database.oxygen_sensor_long_term_fuel_trim/1.28 - 100, 2);
+    ret += ",";
+
+    // Control module voltage:
+    ret += String((256*database.control_module_voltage_A + database.control_module_voltage_B) / 1000.0, 2);
+    ret += ",";
+
+    //Distance Traveled MIL:
+    ret += String(256*database.Distance_Traveled_MIL_on_A + database.control_module_voltage_B);
+    ret += ",";
+    //
+    ret += String(256*database.time_run_with_mil_on_A + database.time_run_with_mil_on_B);
+
+    return ret;
 }
