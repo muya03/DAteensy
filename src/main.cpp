@@ -19,6 +19,8 @@ void setup() {
     Serial.begin(115200); 
     #endif
 
+
+
     initScreen(ScreenUART);
     initRadio(RadioUART);
 
