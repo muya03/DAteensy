@@ -5,10 +5,12 @@
 #include "lib/SD/SDstore.h"
 
 #include "lib/SteeringWheel/SteeringWheel.h"
+#include "lib/Radio/Radio.h"
 
 #include "settings.h"
 
 OBD2sensordata OBD2db = {0};
+Packet RadioPacket = {0};
 
 
 void setup() {
@@ -18,6 +20,7 @@ void setup() {
     #endif
 
     initScreen(ScreenUART);
+    initRadio(RadioUART);
 
     initOBD2(OBD2db);
     initSD();
@@ -31,11 +34,15 @@ uint32_t elapsed_100ms = 0;
 void loop() {
     // execute always
 
+    //TODO get gear
+
+
     OBD2events();
 
     // update screen
     sendRPM(OBD2RPM(OBD2db));
-    // update rpm leds
+
+    //TODO update rpm LEDS
 
     // execute each 100ms
     if (millis() - elapsed_100ms > 100){
@@ -48,9 +55,15 @@ void loop() {
 
     // execute each second
     if (millis() - elapsed_second > 1000){
-        // send data over radio
+        // update radio packet
+        RadioPacket.rpm = OBD2RPM(OBD2db);
 
-        
+        // send data over radio
+        sendPacket(RadioPacket);
+
+
+
+
         elapsed_second = millis();
     }
 
