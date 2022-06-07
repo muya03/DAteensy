@@ -42,14 +42,15 @@ void loop() {
     OBD2events();
 
     // update screen
-    sendRPM(OBD2RPM(OBD2db));
-
+    //sendGear(OBD2RPM(OBD2db));
     //TODO update rpm LEDS
 
     // execute each 100ms
     if (millis() - elapsed_100ms > 100){
         // print data to sd
         String to_save = "";
+        to_save += millis();
+        to_save += ",";
         to_save += OBD2toCSV(OBD2db);
         saveLine(to_save);
         elapsed_100ms = millis();
@@ -62,6 +63,10 @@ void loop() {
 
         // send data over radio
         sendPacket(RadioPacket);
+
+        printOBD2ALL(OBD2db);
+
+        sendGear(7);
 
 
 
