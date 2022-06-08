@@ -19,10 +19,10 @@ void rpmled(int nleds){
     analogWrite(33,55);
     break;
     case 5:
-    analogWrite(33,75);
+    analogWrite(33,74);
     break;
     case 6:
-    analogWrite(33, 89);
+    analogWrite(33, 87);
     break;
     case 7:
     analogWrite(33,100);
@@ -42,6 +42,7 @@ void rpmled(int nleds){
 }
 
 
+
 void initScreen(HardwareSerial &_serial){
     ser = &_serial;
     ser->begin(115200);
@@ -58,13 +59,13 @@ void endMessage(){
 
 void sendGear(int str) {
     
-    ser->write("gear.txt=\"%d\"",str);
+    ser->printf("gear.txt=\"%d\"",str);
     endMessage();
 }
 
 void sendRPM(int str) {
     
-    ser->write("rpm.txt=\"%d\"",str);
+    ser->printf("rpm.txt=\"%d\"",str);
     endMessage();
 
 }

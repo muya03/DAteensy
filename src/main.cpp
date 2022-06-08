@@ -33,6 +33,7 @@ uint32_t elapsed_minute = 0;
 uint32_t elapsed_second = 0;
 uint32_t elapsed_100ms = 0;
 
+int i = 0;
 void loop() {
     // execute always
 
@@ -42,9 +43,9 @@ void loop() {
     OBD2events();
 
     // update screen
-    //sendGear(OBD2RPM(OBD2db));
+    sendRPM(OBD2RPM(OBD2db));
     //TODO update rpm LEDS
-    rpmled(5);
+    //rpmled(OBD2RPM(OBD2db));
 
     // execute each 100ms
     if (millis() - elapsed_100ms > 100){
@@ -67,9 +68,8 @@ void loop() {
 
         printOBD2ALL(OBD2db);
 
-        sendGear(7);
-
-
+        rpmled(i);
+        i = (i+1) % 11;
 
 
         elapsed_second = millis();
