@@ -33,7 +33,6 @@ uint32_t elapsed_minute = 0;
 uint32_t elapsed_second = 0;
 uint32_t elapsed_100ms = 0;
 
-int i = 0;
 void loop() {
     // execute always
 
@@ -67,9 +66,6 @@ void loop() {
         sendPacket(RadioPacket);
 
         printOBD2ALL(OBD2db);
-
-        rpmled(i);
-        i = (i+1) % 11;
 
 
         elapsed_second = millis();
