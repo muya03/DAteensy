@@ -44,6 +44,7 @@ void loop() {
     // update screen
     //sendGear(OBD2RPM(OBD2db));
     //TODO update rpm LEDS
+    rpmled(5);
 
     // execute each 100ms
     if (millis() - elapsed_100ms > 100){

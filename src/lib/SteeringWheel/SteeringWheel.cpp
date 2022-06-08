@@ -7,34 +7,34 @@ void rpmled(int nleds){
     analogWrite(33,0);
     break;
     case 1:
-    analogWrite(33, 120);
+    analogWrite(33, 10);
     break;
     case 2:
-    analogWrite(33,180);
+    analogWrite(33,25);
     break;
     case 3:
-    analogWrite(33,227);
+    analogWrite(33,43);
     break;
     case 4:
-    analogWrite(33,240);
+    analogWrite(33,55);
     break;
     case 5:
-    analogWrite(33,245);
+    analogWrite(33,75);
     break;
     case 6:
-    analogWrite(33, 248);
+    analogWrite(33, 89);
     break;
     case 7:
-    analogWrite(33,250);
+    analogWrite(33,100);
     break;
     case 8:
-    analogWrite(33,252);
+    analogWrite(33,117);
     break;
     case 9:
-    analogWrite(33,253);
+    analogWrite(33,130);
     break;
     case 10:
-    analogWrite(33,255);
+    analogWrite(33,150);
     break;
 
 
