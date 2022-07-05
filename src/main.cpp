@@ -60,12 +60,12 @@ void loop() {
     // execute each second
     if (millis() - elapsed_second > 1000){
         // update radio packet
-        RadioPacket.rpm = OBD2RPM(OBD2db);
+        //RadioPacket.rpm = OBD2RPM(OBD2db);
 
         // send data over radio
-        sendPacket(RadioPacket);
+        //sendPacket(RadioPacket);
 
-        printOBD2ALL(OBD2db);
+        //printOBD2ALL(OBD2db);
 
 
         elapsed_second = millis();
