@@ -69,3 +69,17 @@ void sendRPM(int str) {
     endMessage();
 
 }
+
+void sendCOLTMP(float str) {
+    
+    ser->printf("watertemp.txt=\"%f\"",str);
+    endMessage();
+
+}
+
+void sendAIRTMP(float str) {
+    
+    ser->printf("airtemp.txt=\"%f\"",str);
+    endMessage();
+
+}

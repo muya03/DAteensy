@@ -79,5 +79,6 @@ String OBD2toCSV(OBD2sensordata database);
 
 // conversions
 uint16_t OBD2RPM(OBD2sensordata db);
+float OBD2TMP(uint8_t tmp);
 
 #endif

@@ -43,7 +43,7 @@ void askPID(uint8_t id){
 
 void receivedOBD2callback(const CAN_message_t &msg){
     #ifdef DEBUG
-    Serial.print("Callback reached: ");
+ //   Serial.println("Callback reached: ");
     #endif
     uint8_t length = msg.buf[0];
     uint8_t service = msg.buf[1]; // 41: actual data, 43: dtc

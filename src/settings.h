@@ -6,7 +6,7 @@
 
 #define EEPROM_base_address 0
 
-#define CAN CAN1
+#define CAN CAN3
 #define DEBUG
 
 

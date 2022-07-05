@@ -43,6 +43,9 @@ void loop() {
 
     // update screen
     sendRPM(OBD2RPM(OBD2db));
+    sendCOLTMP(OBD2TMP(OBD2db.Engine_coolant_temperature));
+    sendAIRTMP(OBD2TMP(OBD2db.intake_air_temperature));
+
     //TODO update rpm LEDS
     rpmled(OBD2RPM(OBD2db)/1000);
 
