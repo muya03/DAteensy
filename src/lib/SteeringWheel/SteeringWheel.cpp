@@ -58,6 +58,12 @@ void endMessage(){
 
 
 void sendGear(int str) {
+
+    if (str == 128){
+        ser->printf("gear.txt=\"E\"");
+        endMessage();
+        return;
+    }
     
     ser->printf("gear.txt=\"%d\"",str);
     endMessage();

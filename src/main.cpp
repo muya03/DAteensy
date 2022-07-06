@@ -7,6 +7,10 @@
 #include "lib/SteeringWheel/SteeringWheel.h"
 #include "lib/Radio/Radio.h"
 
+#include "lib/sensors/gear.h"
+
+
+
 #include "settings.h"
 
 OBD2sensordata OBD2db = {0};
@@ -20,12 +24,13 @@ void setup() {
     #endif
 
 
-
     initScreen(ScreenUART);
     initRadio(RadioUART);
 
     initOBD2(OBD2db);
     initSD();
+
+    initGear();
 
     rpmled(0);
     OBD2db.engine_rpmA=0;
@@ -66,6 +71,8 @@ void loop() {
     sendTrim1(OBD2Trim(OBD2db.long_term_fuel_trim));
     sendTrim2(OBD2Trim(OBD2db.oxygen_sensor_long_term_fuel_trim));
     sendDTCcount(OBD2db.DTC_CNT);
+
+    sendGear(getGear());
 
     //update rpm LEDS
     rpmled(OBD2RPM(OBD2db)/1000);

@@ -19,5 +19,4 @@ void sendDTCcount(int str);
 void enable();
 void disable();
 
-int getGear();
 #endif
