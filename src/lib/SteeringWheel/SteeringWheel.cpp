@@ -72,14 +72,44 @@ void sendRPM(int str) {
 
 void sendCOLTMP(float str) {
     
-    ser->printf("watertemp.txt=\"%f\"",str);
+    ser->printf("watertemp.txt=\"%1f\"",str);
     endMessage();
 
 }
 
-void sendAIRTMP(float str) {
-    
-    ser->printf("airtemp.txt=\"%f\"",str);
+void sendTPS(float str){
+    uint8_t str_int = round(str);
+    ser->printf("throttlebar.val=%d",str_int);
+    endMessage();
+    ser->printf("throttle.txt=\"%2f\"%",str);
+    endMessage();
+
+}
+
+void sendTrim1(float str){
+    ser->printf("minifold1.txt=\"%3f\"",str);
+    endMessage();
+
+}
+
+void sendTrim2(float str){
+    ser->printf("minifold2.txt=\"%3f\"",str);
+    endMessage();
+}
+
+void sendDTCcount(int str){
+    ser->printf("dtc.txt=\"%d\"",str);
+    endMessage();
+}
+
+
+void enable(){
+    ser->printf("page 1");
+    endMessage();
+}
+
+void disable(){
+    ser->printf("page 0");
     endMessage();
 
 }

@@ -74,11 +74,14 @@ void printOBD2ALL(OBD2sensordata database);
 
 String OBD2toCSV(OBD2sensordata database);
 
-//FlexCAN_T4<CAN, RX_SIZE_256, TX_SIZE_16> _can;
-//OBD2sensordata _db;
+boolean isContact();
+
 
 // conversions
 uint16_t OBD2RPM(OBD2sensordata db);
 float OBD2TMP(uint8_t tmp);
+float OBD2PC(uint8_t tmp);
+float OBD2Trim(uint8_t tmp);
+
 
 #endif

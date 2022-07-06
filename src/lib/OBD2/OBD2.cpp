@@ -4,6 +4,8 @@ uint8_t idList[17] = {0x01, 0x03, 0x04, 0x05, 0x07, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
 uint8_t idIndex = 0;
 uint32_t time_received = 0;
 
+boolean contact = false;
+
 
 FlexCAN_T4<CAN, RX_SIZE_256, TX_SIZE_16> myCan;
 OBD2sensordata *_db;
@@ -45,6 +47,8 @@ void receivedOBD2callback(const CAN_message_t &msg){
     #ifdef DEBUG
  //   Serial.println("Callback reached: ");
     #endif
+    contact = true;
+
     uint8_t length = msg.buf[0];
     uint8_t service = msg.buf[1]; // 41: actual data, 43: dtc
     uint8_t pid = msg.buf[2];
@@ -141,7 +145,8 @@ void OBD2events(){
     myCan.events();
 
     // restart asking if not response 
-    if (millis()-time_received > 1000){
+    if (millis()-time_received > 250){
+        contact = false;
         #ifdef DEBUG
         Serial.println("Failed to receive response, restarting");
         #endif
@@ -302,4 +307,8 @@ String OBD2toCSV(OBD2sensordata database){
     ret += String(256*database.time_run_with_mil_on_A + database.time_run_with_mil_on_B);
 
     return ret;
+}
+
+boolean isContact(){
+    return contact;
 }

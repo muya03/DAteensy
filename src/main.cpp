@@ -26,12 +26,17 @@ void setup() {
 
     initOBD2(OBD2db);
     initSD();
+
+    rpmled(0);
+    OBD2db.engine_rpmA=0;
+    OBD2db.engine_rpmB=0;
 }
 
 
 uint32_t elapsed_minute = 0;
 uint32_t elapsed_second = 0;
 uint32_t elapsed_100ms = 0;
+boolean previous_contact = false;
 
 void loop() {
     // execute always
@@ -41,12 +46,28 @@ void loop() {
 
     OBD2events();
 
+    // shutdown screen if contact is off
+    if (isContact()){
+        if (!previous_contact){
+            enable();
+            previous_contact = true;
+        }
+    } else{
+        if (previous_contact){
+            disable();
+            previous_contact = false;
+        }
+    }
+
     // update screen
     sendRPM(OBD2RPM(OBD2db));
     sendCOLTMP(OBD2TMP(OBD2db.Engine_coolant_temperature));
-    sendAIRTMP(OBD2TMP(OBD2db.intake_air_temperature));
+    sendTPS(OBD2PC(OBD2db.relavite_throttle_position));
+    sendTrim1(OBD2Trim(OBD2db.long_term_fuel_trim));
+    sendTrim2(OBD2Trim(OBD2db.oxygen_sensor_long_term_fuel_trim));
+    sendDTCcount(OBD2db.DTC_CNT);
 
-    //TODO update rpm LEDS
+    //update rpm LEDS
     rpmled(OBD2RPM(OBD2db)/1000);
 
     // execute each 100ms
