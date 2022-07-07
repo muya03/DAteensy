@@ -75,7 +75,7 @@ void loop() {
     sendGear(getGear());
 
     //update rpm LEDS
-    rpmled(OBD2RPM(OBD2db)/1000);
+    rpmledInverse(OBD2RPM(OBD2db)/1000);
 
     // execute each 100ms
     if (millis() - elapsed_100ms > 100){

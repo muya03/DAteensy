@@ -4,6 +4,7 @@
 #include <Arduino.h>
 
 void rpmled(int nleds);
+void rpmledInverse(int nleds);
 
 void initScreen(HardwareSerial &_serial);
 

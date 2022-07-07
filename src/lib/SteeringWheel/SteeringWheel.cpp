@@ -41,6 +41,45 @@ void rpmled(int nleds){
   }
 }
 
+void rpmledInverse(int nleds){
+  switch (nleds){
+    case 0:
+    analogWrite(33,255);
+    break;
+    case 1:
+    analogWrite(33, 135);
+    break;
+    case 2:
+    analogWrite(33,120);
+    break;
+    case 3:
+    analogWrite(33,110);
+    break;
+    case 4:
+    analogWrite(33,87);
+    break;
+    case 5:
+    analogWrite(33,74);
+    break;
+    case 6:
+    analogWrite(33, 55);
+    break;
+    case 7:
+    analogWrite(33,40);
+    break;
+    case 8:
+    analogWrite(33,30);
+    break;
+    case 9:
+    analogWrite(33,10);
+    break;
+    case 10:
+    analogWrite(33,0);
+    break;
+
+
+  }
+}
 
 
 void initScreen(HardwareSerial &_serial){
