@@ -147,6 +147,18 @@ void sendDTCcount(int str){
     endMessage();
 }
 
+void sendPressure1(int str){
+    ser->printf("presion1.txt=\"%d\"",str);
+    endMessage();
+
+}
+
+void sendPressure2(int str){
+    ser->printf("presion2.txt=\"%d\"",str);
+    endMessage();
+
+}
+
 
 void enable(){
     ser->printf("page 1");

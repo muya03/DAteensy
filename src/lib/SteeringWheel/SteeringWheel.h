@@ -17,6 +17,9 @@ void sendTrim1(float str);
 void sendTrim2(float str);
 void sendDTCcount(int str);
 
+void sendPressure1(int str);
+void sendPressure2(int str);
+
 void enable();
 void disable();
 

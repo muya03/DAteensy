@@ -68,8 +68,10 @@ void loop() {
     sendRPM(OBD2RPM(OBD2db));
     sendCOLTMP(OBD2TMP(OBD2db.Engine_coolant_temperature));
     sendTPS(OBD2PC(OBD2db.relavite_throttle_position));
-    sendTrim1(OBD2Trim(OBD2db.long_term_fuel_trim));
-    sendTrim2(OBD2Trim(OBD2db.oxygen_sensor_long_term_fuel_trim));
+    //sendTrim1(OBD2Trim(OBD2db.long_term_fuel_trim));
+    //sendTrim2(OBD2Trim(OBD2db.oxygen_sensor_long_term_fuel_trim));
+    sendPressure1(OBD2db.absolute_barometric_presure);
+    sendPressure2(OBD2db.intake_manifold_absolute_pressure);
     sendDTCcount(OBD2db.DTC_CNT);
 
     sendGear(getGear());
