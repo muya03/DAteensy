@@ -9,7 +9,7 @@ void initGear(){
 int getGear(){
   for(int i=0; i<7; i++){
     if (!digitalRead(i)){
-      return i;
+      return 6-i;
     }
   }
   return 255;
